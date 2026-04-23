@@ -2,21 +2,11 @@ import { forwardRef } from "react";
 
 const PDFTemplate = forwardRef(function PDFTemplate({ data }, ref) {
 
-  /**
-   * Returns only the rows that have at least one non-empty field.
-   * If nothing is filled, returns a single dash-row so the section
-   * still looks intentional rather than broken.
-   *
-   * @param {object[]} arr      - raw array from form state
-   * @param {string[]} fields   - keys to check for content
-   * @returns {{ rows: object[], empty: boolean }}
-   */
   const dynamicRows = (arr = [], fields = []) => {
     const filled = arr.filter((row) =>
       fields.some((f) => String(row[f] ?? "").trim() !== "")
     );
     if (filled.length === 0) {
-      // one dash-row — every field maps to "—"
       const dash = Object.fromEntries(fields.map((f) => [f, "—"]));
       return { rows: [dash], empty: true };
     }
@@ -33,12 +23,18 @@ const PDFTemplate = forwardRef(function PDFTemplate({ data }, ref) {
 
       {/* Logo + Title */}
       <div className="pdf-logo-row">
-        <div className="pdf-logo-circle">G</div>
-        <div className="pdf-title-main">Personal Information Questionnaire</div>
+        <img
+          src="/Glyptika_Logo.png"
+          alt="Glyptika Logo"
+          style={{ width: 42, height: 42, objectFit: "contain" }}
+        />
+        <div className="pdf-title-main">
+          Personal Information Questionnaire
+        </div>
       </div>
 
       {/* Batch */}
-      <table className="pdf-table" style={{ marginBottom: 0 }}>
+      <table className="pdf-table pdf-marks-row" style={{ marginBottom: 0 }}>
         <tbody>
           <tr>
             <td style={{ width: "50%", fontWeight: 700 }}>
@@ -49,7 +45,20 @@ const PDFTemplate = forwardRef(function PDFTemplate({ data }, ref) {
         </tbody>
       </table>
 
-      {/* ── Personal Information ── */}
+      {/* ✅ NEW MARKS ROW */}
+      <table className="pdf-table" style={{ marginBottom: 0 }}>
+        <tbody>
+          <tr>
+            <td style={{ width: "18%" }}></td>
+            <td style={{ width: "18%" }}></td>
+            <td style={{ width: "18%" }}></td>
+            <td style={{ width: "23%" }}></td>
+            <td style={{ width: "23%" }}></td>
+          </tr>
+        </tbody>
+      </table>
+
+      {/* Personal Information */}
       <div className="pdf-section-block">
         <div className="pdf-section-header">Personal Information</div>
         <table className="pdf-table">
@@ -106,7 +115,7 @@ const PDFTemplate = forwardRef(function PDFTemplate({ data }, ref) {
         </table>
       </div>
 
-      {/* ── Educational Information ── */}
+      {/* Educational */}
       <div className="pdf-section-block">
         <div className="pdf-section-header">Educational Information</div>
         <table className="pdf-table">
@@ -122,14 +131,14 @@ const PDFTemplate = forwardRef(function PDFTemplate({ data }, ref) {
               <td>No. of Backlogs</td><td>{data.education.backlogs}</td>
             </tr>
             <tr>
-              <td>Class 10 Board &amp; Marks</td><td>{data.education.class10}</td>
-              <td>Class 12 Board &amp; Marks</td><td>{data.education.class12}</td>
+              <td>Class 10 Board & Marks</td><td>{data.education.class10}</td>
+              <td>Class 12 Board & Marks</td><td>{data.education.class12}</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      {/* ── Co-Curriculars ── */}
+      {/* Co-Curricular */}
       <div className="pdf-section-block">
         <div className="pdf-section-header">Co-Curriculars</div>
         <table className="pdf-table">
@@ -137,8 +146,8 @@ const PDFTemplate = forwardRef(function PDFTemplate({ data }, ref) {
             <tr>
               <th style={{ width: "5%" }}>#</th>
               <th style={{ width: "40%" }}>Name of Activity</th>
-              <th style={{ width: "25%" }}>Duration of Participation</th>
-              <th style={{ width: "30%" }}>Outstanding Achievement</th>
+              <th style={{ width: "25%" }}>Duration</th>
+              <th style={{ width: "30%" }}>Achievement</th>
             </tr>
           </thead>
           <tbody>
@@ -154,94 +163,9 @@ const PDFTemplate = forwardRef(function PDFTemplate({ data }, ref) {
         </table>
       </div>
 
-      {/* ── College Societies ── */}
-      <div className="pdf-section-block">
-        <div className="pdf-section-header">College Societies</div>
-        <table className="pdf-table">
-          <thead>
-            <tr>
-              <th style={{ width: "5%" }}>#</th>
-              <th style={{ width: "40%" }}>Name of Society</th>
-              <th style={{ width: "25%" }}>Appointment</th>
-              <th style={{ width: "30%" }}>Outstanding Achievement</th>
-            </tr>
-          </thead>
-          <tbody>
-            {societies.rows.map((row, i) => (
-              <tr key={i}>
-                <td>{societies.empty ? "—" : i + 1}</td>
-                <td>{row.name}</td>
-                <td>{row.role}</td>
-                <td>{row.achievement}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* ── Projects / Internship ── */}
-      <div className="pdf-section-block">
-        <div className="pdf-section-header">Projects / Internship Experience</div>
-        <table className="pdf-table">
-          <thead>
-            <tr>
-              <th style={{ width: "5%" }}>#</th>
-              <th style={{ width: "40%" }}>Activity &amp; Description</th>
-              <th style={{ width: "25%" }}>Duration of Participation</th>
-              <th style={{ width: "30%" }}>Outstanding Achievement</th>
-            </tr>
-          </thead>
-          <tbody>
-            {projects.rows.map((row, i) => (
-              <tr key={i}>
-                <td style={{ paddingTop: 14, paddingBottom: 14 }}>
-                  {projects.empty ? "—" : i + 1}
-                </td>
-                <td style={{ paddingTop: 14, paddingBottom: 14 }}>{row.description}</td>
-                <td style={{ paddingTop: 14, paddingBottom: 14 }}>{row.duration}</td>
-                <td style={{ paddingTop: 14, paddingBottom: 14 }}>{row.achievement}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* ── Sports ── */}
-      <div className="pdf-section-block">
-        <div className="pdf-section-header">Sports Played</div>
-        <table className="pdf-table">
-          <thead>
-            <tr>
-              <th style={{ width: "5%" }}>#</th>
-              <th style={{ width: "40%" }}>Name of Sport</th>
-              <th style={{ width: "25%" }}>Duration of Participation</th>
-              <th style={{ width: "30%" }}>Outstanding Achievement</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sports.rows.map((row, i) => (
-              <tr key={i}>
-                <td>{sports.empty ? "—" : i + 1}</td>
-                <td>{row.name}</td>
-                <td>{row.duration}</td>
-                <td>{row.achievement}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* ── Declaration ── */}
+      {/* Declaration */}
       <div className="pdf-declaration">
-        <strong>Declaration:</strong> I hereby declare that the information
-        provided above in this Personal Information Questionnaire is true and
-        correct to the best of my knowledge and belief.
-        <div style={{ marginTop: 24, display: "flex", justifyContent: "flex-end" }}>
-          <div style={{ textAlign: "center", minWidth: 150 }}>
-            <div style={{ borderBottom: "1px solid #555", marginBottom: 4, height: 30 }} />
-            <div style={{ fontSize: 10, color: "#555" }}>Signature</div>
-          </div>
-        </div>
+        <strong>Declaration:</strong> I hereby declare that the information is correct.
       </div>
 
     </div>

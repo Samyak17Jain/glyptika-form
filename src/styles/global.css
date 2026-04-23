@@ -294,41 +294,91 @@ select option { background: var(--surface); }
    PDF TEMPLATE
 ═══════════════════════════════════════════════════════════════════════════ */
 .pdf-template {
-  position: absolute; top: 0; left: 0;
-  width: 794px; background: #fff; color: #111;
-  font-family: Arial, sans-serif; font-size: 11px; padding: 28px;
-  visibility: hidden; pointer-events: none; z-index: -1;
-}
-.pdf-template.rendering { visibility: visible; z-index: -1; }
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 794px;
+  background: #fff;
+  color: #111;
 
-.pdf-logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-.pdf-logo-circle {
-  width: 38px; height: 38px; border-radius: 50%;
-  background: linear-gradient(135deg, #e91e8c, #b5006e);
-  display: grid; place-items: center;
-  font-weight: 700; font-size: 18px; color: #fff; flex-shrink: 0;
+  /* ✅ FONT FIX */
+  font-family: "Times New Roman", Times, serif;
+
+  font-size: 11px;
+  padding: 28px;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: -1;
 }
-.pdf-title-main { font-size: 22px; font-weight: 700; letter-spacing: .01em; }
+
+.pdf-logo-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.pdf-title-main {
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  width: 100%;
+  text-align: center;
+}
 
 .pdf-section-header {
-  background: #f7d0e8; text-align: center; font-weight: 700; font-size: 11px;
-  padding: 5px; letter-spacing: .05em; text-transform: uppercase;
-  border: 1px solid #aaa; border-bottom: none;
-  page-break-inside: avoid; break-inside: avoid;
+  background: #f7d0e8;
+  text-align: center;
+  font-weight: 700;
+  font-size: 11px;
+  padding: 5px;
+  border: 1px solid #aaa;
+  border-bottom: none;
 }
-.pdf-section-block { page-break-inside: avoid; break-inside: avoid; }
 
-.pdf-table { width: 100%; border-collapse: collapse; margin-bottom: 0; page-break-inside: avoid; break-inside: avoid; }
-.pdf-table td, .pdf-table th {
-  border: 1px solid #aaa; padding: 5px 8px; vertical-align: top;
-  font-size: 11px; word-break: break-word; overflow-wrap: break-word;
+.pdf-table {
+  width: 100%;
+  border-collapse: collapse;
 }
-.pdf-table th { font-weight: 700; background: #f5f5f5; font-size: 10px; text-transform: uppercase; }
 
-.pdf-photo     { width: 85px; height: 100px; object-fit: cover; border: 1px solid #aaa; }
-.pdf-photo-cell { width: 95px; text-align: center; vertical-align: middle; }
+.pdf-table td,
+.pdf-table th {
+  border: 1px solid #aaa;
+  padding: 6px 8px;
+
+  /* ✅ ALIGNMENT FIX */
+  vertical-align: middle;
+  text-align: center;
+
+  font-size: 11px;
+}
+
+/* labels left aligned */
+.pdf-table td:first-child {
+  text-align: left;
+  font-weight: 500;
+}
+
+.pdf-photo {
+  width: 85px;
+  height: 100px;
+  object-fit: cover;
+  border: 1px solid #aaa;
+}
+
+.pdf-photo-cell {
+  width: 95px;
+  text-align: center;
+  vertical-align: middle;
+}
 
 .pdf-declaration {
-  font-size: 10px; margin-top: 14px; padding: 8px; border: 1px solid #aaa;
-  page-break-inside: avoid; break-inside: avoid;
+  font-size: 10px;
+  margin-top: 14px;
+  padding: 8px;
+  border: 1px solid #aaa;
+}
+/* ✅ Marks row height */
+.pdf-marks-row td {
+  height: 40px;   /* increase as needed (40–50 is ideal) */
 }
