@@ -348,7 +348,8 @@ select option { background: var(--surface); }
 
   /* ✅ ALIGNMENT FIX */
   vertical-align: middle;
-  text-align: center;
+  text-align: left;
+
 
   font-size: 11px;
 }
