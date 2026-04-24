@@ -82,7 +82,7 @@ export function useFormData() {
   // ── Validation ────────────────────────────────────────────────────────────
   const validate = (step) => {
     let errs = {};
-    if (step === 0) errs = validatePersonal(data.personal);
+    if (step === 0) errs = validatePersonal(data.personal, data);
     setErrors(errs);
     return isValid(errs);
   };

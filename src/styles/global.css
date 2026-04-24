@@ -190,6 +190,12 @@ textarea { resize: vertical; min-height: 80px; }
 select option { background: var(--surface); }
 
 .error-msg { font-size: 11px; color: var(--danger); margin-top: 2px; }
+input.error,
+textarea.error,
+.photo-zone.error {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 2px rgba(224,92,92,.12);
+}
 
 /* ═══════════════════════════════════════════════════════════════════════════
    DYNAMIC ROWS
