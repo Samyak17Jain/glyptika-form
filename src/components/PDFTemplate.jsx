@@ -162,6 +162,75 @@ const PDFTemplate = forwardRef(function PDFTemplate({ data }, ref) {
           </tbody>
         </table>
       </div>
+      <div className="pdf-section-block">
+  <div className="pdf-section-header">Projects / Internships</div>
+  <table className="pdf-table">
+    <thead>
+      <tr>
+        <th style={{ width: "5%" }}>#</th>
+        <th style={{ width: "45%" }}>Description</th>
+        <th style={{ width: "20%" }}>Duration</th>
+        <th style={{ width: "30%" }}>Achievement</th>
+      </tr>
+    </thead>
+    <tbody>
+      {projects.rows.map((row, i) => (
+        <tr key={i}>
+          <td>{projects.empty ? "—" : i + 1}</td>
+          <td>{row.description}</td>
+          <td>{row.duration}</td>
+          <td>{row.achievement}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+<div className="pdf-section-block">
+  <div className="pdf-section-header">Societies</div>
+  <table className="pdf-table">
+    <thead>
+      <tr>
+        <th style={{ width: "5%" }}>#</th>
+        <th style={{ width: "35%" }}>Society</th>
+        <th style={{ width: "25%" }}>Role</th>
+        <th style={{ width: "35%" }}>Achievement</th>
+      </tr>
+    </thead>
+    <tbody>
+      {societies.rows.map((row, i) => (
+        <tr key={i}>
+          <td>{societies.empty ? "—" : i + 1}</td>
+          <td>{row.name}</td>
+          <td>{row.role}</td>
+          <td>{row.achievement}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+<div className="pdf-section-block">
+  <div className="pdf-section-header">Sports</div>
+  <table className="pdf-table">
+    <thead>
+      <tr>
+        <th style={{ width: "5%" }}>#</th>
+        <th style={{ width: "40%" }}>Sport</th>
+        <th style={{ width: "25%" }}>Duration</th>
+        <th style={{ width: "30%" }}>Achievement</th>
+      </tr>
+    </thead>
+    <tbody>
+      {sports.rows.map((row, i) => (
+        <tr key={i}>
+          <td>{sports.empty ? "—" : i + 1}</td>
+          <td>{row.name}</td>
+          <td>{row.duration}</td>
+          <td>{row.achievement}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
 
       {/* Declaration */}
       <div className="pdf-declaration">
